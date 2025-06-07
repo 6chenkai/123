@@ -9,42 +9,41 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout source code
+      - name: Checkout your repo
         uses: actions/checkout@v3
 
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Cache OpenWrt downloads
-        uses: actions/cache@v3
-        with:
-          path: |
-            downloads
-            dl
-          key: ${{ runner.os }}-openwrt-downloads-${{ hashFiles('**/feeds.conf.default') }}
+      - name: Clone OpenWrt source
+        run: git clone --depth=1 https://github.com/openwrt/openwrt.git
 
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential libncurses5-dev zlib1g-dev gawk git gettext libssl-dev xsltproc libxml-parser-perl unzip file wget python3
+          sudo apt-get install -y \
+            build-essential libncurses5-dev zlib1g-dev gawk git gettext libssl-dev \
+            xsltproc libxml-parser-perl unzip file wget python3
 
       - name: Update and install feeds
+        working-directory: openwrt
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
       - name: Copy defconfig
-        run: cp configs/n1_defconfig .config
+        run: cp ../configs/n1_defconfig .config
+        working-directory: openwrt
 
       - name: Prepare config
+        working-directory: openwrt
         run: yes "" | make defconfig
 
       - name: Build firmware
+        working-directory: openwrt
         run: make -j$(nproc)
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: bin/targets/**/*
+          path: openwrt/bin/targets/**/*
