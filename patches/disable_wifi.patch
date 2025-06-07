@@ -1,0 +1,8 @@
+--- a/target/linux/amlogic/files-5.15/arch/arm64/boot/dts/amlogic/meson-gxl-s905d-phicomm-n1.dts
++++ b/target/linux/amlogic/files-5.15/arch/arm64/boot/dts/amlogic/meson-gxl-s905d-phicomm-n1.dts
+@@ -100,7 +100,7 @@
+-       wifi {
+-               compatible = "brcm,bcm4329-fmac";
+-               ...
+-       };
++       /* wifi removed */
