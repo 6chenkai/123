@@ -31,8 +31,9 @@ jobs:
         chmod +x build.sh
         ./build.sh
 
-    - name: Upload firmware artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: openwrt-n1-firmware
-        path: openwrt/output/*.img.gz
+- name: Upload firmware
+  uses: actions/upload-artifact@v4
+  with:
+    name: firmware
+    path: path/to/firmware
+
