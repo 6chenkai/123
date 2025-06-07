@@ -1,0 +1,38 @@
+name: Build OpenWrt for N1
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y build-essential git wget unzip python3
+
+    - name: Clone OpenWrt source
+      run: |
+        git clone --depth=1 https://github.com/ophub/amlogic-s9xxx-openwrt openwrt
+        cp -r configs openwrt/
+        cp -r patches openwrt/
+
+    - name: Build firmware
+      run: |
+        cd openwrt
+        chmod +x build.sh
+        ./build.sh
+
+    - name: Upload firmware artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: openwrt-n1-firmware
+        path: openwrt/output/*.img.gz
