@@ -1,31 +1,86 @@
+# Target Profile
 CONFIG_TARGET_amlogic=y
 CONFIG_TARGET_amlogic_phicomm-n1=y
 CONFIG_TARGET_amlogic_phicomm-n1_DEVICE_generic=y
 
-# LuCI Web 管理
-CONFIG_PACKAGE_luci=y
+# Base system
+CONFIG_PACKAGE_base-files=y
+CONFIG_PACKAGE_ca-bundle=y
+CONFIG_PACKAGE_ca-certificates=y
+CONFIG_PACKAGE_coreutils=y
+CONFIG_PACKAGE_coreutils-nohup=y
+CONFIG_PACKAGE_ethtool=y
+CONFIG_PACKAGE_ip-full=y
+CONFIG_PACKAGE_iptables-mod-fullconenat=y
+CONFIG_PACKAGE_kmod-ipt-fullconenat=y
+CONFIG_PACKAGE_kmod-nf-nathelper-extra=y
+CONFIG_PACKAGE_uci=y
+CONFIG_PACKAGE_uci-defaults=y
 
-# 科学上网
+# IPv6 support
+CONFIG_PACKAGE_dnsmasq-full=y
+CONFIG_PACKAGE_kmod-ip6tables=y
+CONFIG_PACKAGE_kmod-ipv6=y
+CONFIG_PACKAGE_kmod-sit=y
+CONFIG_PACKAGE_odhcp6c=y
+CONFIG_PACKAGE_odhcpd-ipv6only=y
+CONFIG_PACKAGE_luci-proto-ipv6=y
+
+# Luci Web UI
+CONFIG_PACKAGE_luci=y
+CONFIG_PACKAGE_luci-theme-argon=y
+CONFIG_PACKAGE_luci-compat=y
+CONFIG_PACKAGE_luci-base=y
+
+# OpenClash
 CONFIG_PACKAGE_luci-app-openclash=y
+
+# PassWall2 (with Hysteria2)
 CONFIG_PACKAGE_luci-app-passwall2=y
 
-# 容器服务
+# Docker & dependencies
 CONFIG_PACKAGE_luci-app-docker=y
+CONFIG_PACKAGE_docker=y
+CONFIG_PACKAGE_dockerd=y
+CONFIG_PACKAGE_containerd=y
+CONFIG_PACKAGE_cgroupfs-mount=y
+CONFIG_PACKAGE_kmod-dm=y
+CONFIG_PACKAGE_kmod-veth=y
+CONFIG_PACKAGE_kmod-bridge=y
+CONFIG_PACKAGE_kmod-crypto-aead=y
+CONFIG_PACKAGE_kmod-crypto-hash=y
+CONFIG_PACKAGE_kmod-crypto-user=y
 
-# 动态域名
+# DDNS-GO
 CONFIG_PACKAGE_luci-app-ddns-go=y
 
-# 网络加速
-CONFIG_PACKAGE_kmod-tcp-bbr=y
-CONFIG_PACKAGE_kmod-ipt-offload=y
-CONFIG_PACKAGE_luci-app-turboacc=y
-CONFIG_PACKAGE_fullconenat=y
-
-# DNS 广告过滤
+# AdGuardHome
 CONFIG_PACKAGE_luci-app-adguardhome=y
 
-# 远程终端
-CONFIG_PACKAGE_luci-app-ttyd=y
+# TurboACC (网络加速)
+CONFIG_PACKAGE_luci-app-turboacc=y
+CONFIG_PACKAGE_fullconenat=y
+CONFIG_PACKAGE_kmod-ipt-offload=y
+CONFIG_PACKAGE_kmod-tcp-bbr=y
 
-# 美化界面
-CONFIG_PACKAGE_luci-theme-argon=y
+# Terminal & tools
+CONFIG_PACKAGE_luci-app-ttyd=y
+CONFIG_PACKAGE_htop=y
+CONFIG_PACKAGE_screen=y
+CONFIG_PACKAGE_openssh-sftp-server=y
+
+# Filesystem support for Docker
+CONFIG_PACKAGE_kmod-fs-btrfs=y
+CONFIG_PACKAGE_kmod-fs-ext4=y
+CONFIG_PACKAGE_kmod-fs-overlay=y
+CONFIG_PACKAGE_kmod-fs-xfs=y
+
+# Compression & utilities
+CONFIG_PACKAGE_tar=y
+CONFIG_PACKAGE_unzip=y
+CONFIG_PACKAGE_zip=y
+CONFIG_PACKAGE_gzip=y
+
+# Remove Python (intentionally not included)
+# CONFIG_PACKAGE_python3 is not set
+# CONFIG_PACKAGE_python3-netifaces is not set
