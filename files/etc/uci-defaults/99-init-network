@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# 初始化网络配置，LAN固定IP 192.168.9.2，关闭 DHCP，启动 IPv6
+
+uci batch <<-EOF
+  # 设置LAN口静态IP
+  set network.lan.proto='static'
+  set network.lan.ipaddr='192.168.9.2'
+  set network.lan.netmask='255.255.255.0'
+  
+  # 关闭 LAN DHCP 服务
+  set dhcp.lan.ignore='1'
+  
+  # IPv6 配置，启动 RA 和 DHCPv6 服务端
+  set dhcp.lan.ra='server'
+  set dhcp.lan.dhcpv6='server'
+  set network.lan.ip6assign='64'
+  set network.lan.ip6hint='1'
+  
+  commit network
+  commit dhcp
+EOF
+
+/etc/init.d/network restart
+
+# 删除自身，避免重复执行
+rm -f /etc/uci-defaults/99-init-network
